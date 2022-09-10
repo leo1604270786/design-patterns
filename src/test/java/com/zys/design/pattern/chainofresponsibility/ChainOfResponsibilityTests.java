@@ -1,5 +1,8 @@
 package com.zys.design.pattern.chainofresponsibility;
 
+import com.zys.design.pattern.chainofresponsibility.impl2.DefaultHandler;
+import com.zys.design.pattern.chainofresponsibility.impl2.HandlerChain;
+import com.zys.design.pattern.chainofresponsibility.impl2.SpecialHandler;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -36,5 +39,18 @@ public class ChainOfResponsibilityTests {
         projectManager.handlerRequest(param4);
         projectManager.handlerRequest(param5);
         projectManager.handlerRequest(param6);
+    }
+
+    @Test
+    public void testChainOfResponsibility2() {
+        RequestParam specialParam = new RequestParam("special", LocalDateTime.now(), 0);
+        RequestParam defaultParam = new RequestParam("default", LocalDateTime.now(), 0);
+
+        HandlerChain handlerChain = new HandlerChain();
+        handlerChain.addHandler(new SpecialHandler());
+        handlerChain.addHandler(new DefaultHandler());
+        handlerChain.handle(defaultParam);
+        System.out.println("=============================");
+        handlerChain.handle(specialParam);
     }
 }
