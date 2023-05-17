@@ -43,14 +43,19 @@ public class ChainOfResponsibilityTests {
 
     @Test
     public void testChainOfResponsibility2() {
-        RequestParam specialParam = new RequestParam("special", LocalDateTime.now(), 0);
-        RequestParam defaultParam = new RequestParam("default", LocalDateTime.now(), 0);
+//        RequestParam specialParam = new RequestParam("special", LocalDateTime.now(), 0);
+//        RequestParam defaultParam = new RequestParam("default", LocalDateTime.now(), 0);
+//
+//        HandlerChain handlerChain = new HandlerChain();
+//        handlerChain.addHandler(new SpecialHandler());
+//        handlerChain.addHandler(new DefaultHandler());
+//        handlerChain.handle(defaultParam);
+//        System.out.println("=============================");
+//        handlerChain.handle(specialParam);
 
-        HandlerChain handlerChain = new HandlerChain();
-        handlerChain.addHandler(new SpecialHandler());
-        handlerChain.addHandler(new DefaultHandler());
-        handlerChain.handle(defaultParam);
-        System.out.println("=============================");
-        handlerChain.handle(specialParam);
+        RequestParam requestParam = new RequestParam("default", LocalDateTime.now(), 0);
+
+        HandlerChain handlerChain = new HandlerChain(requestParam);
+        handlerChain.handle();
     }
 }

@@ -9,19 +9,19 @@ public class HandlerChain {
 
     private List<Handler> handlers = new ArrayList<>();
 
-    public void addHandler(Handler handler) {
-        if (handler != null) {
-            handlers.add(handler);
-        }
+    public HandlerChain(RequestParam requestParam) {
+        //初始化
+        handlers.add(new DefaultHandler(requestParam));
+        handlers.add(new SpecialHandler(requestParam));
+        //倒序排序，优先级越小越高
+        handlers.sort((h1, h2) -> Integer.compare(h2.getOrder(), h1.getOrder()));
     }
 
-    public void handle(RequestParam requestParam) {
+    public void handle() {
         System.out.println("before handle");
 
         for (Handler handler : handlers) {
-            if (handler.handle(requestParam)) {
-                break;
-            }
+            handler.handle();
         }
 
         System.out.println("after handle");
